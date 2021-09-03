@@ -2,8 +2,8 @@
 
 import axios from 'axios';
 import { Router, Response, Request, NextFunction } from 'express';
-import { nextTick } from 'process';
 import UserResponse from '../types/userresponse';
+import PostRequest from '../types/PostRequest';
 
 
 const userroute = Router();
@@ -31,4 +31,18 @@ userroute.get('/:id', (req:Request,res:Response,next:NextFunction) => {
     .catch(error => console.error(error));
 });
 
+
+userroute.post('/posts', (req:Request,res:Response,next:NextFunction) => {
+    
+   let postInput:PostRequest = {
+       body: req.body.info,
+       id: req.body.id,
+       title: req.body.title,
+       userId: req.body.userId
+
+   }
+    axios.post("https://jsonplaceholder.typicode.com/posts", postInput)
+    .then(postdata => res.send(postdata.data))
+    .catch(error => console.error(error));
+});
 export default userroute;

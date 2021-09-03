@@ -7,6 +7,7 @@ import userroute from './routes/userrouter';
 
 const app = express();
 
+app.use(express.json());
 app.use("/api/users",userroute);
 
 if(app.get('env') === 'dev')
